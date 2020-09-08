@@ -42,6 +42,7 @@ INDEX VERSION 1.131+C:\Users\ro080\Desktop\Proyecto Dekoi\Dekoi-Backend\.metadat
 2536571043.index
 852062924.index
 2149522766.index
+1910345809.index
 2689382275.index
 1144685634.index
 818356240.index
