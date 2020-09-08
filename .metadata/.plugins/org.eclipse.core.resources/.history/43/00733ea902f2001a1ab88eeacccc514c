@@ -1,0 +1,5 @@
+package com.dekoi.backend.models;
+
+public class Categoria {
+
+}

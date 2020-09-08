@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 2 elements from project &apos;dekoi-backend&apos;&#x0D;&#x0A;- Original project: &apos;dekoi-backend&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     dekoi-backend/target/generated-sources/annotations&#x0D;&#x0A;     dekoi-backend/target/generated-test-sources/test-annotations" description="Delete elements" element1="/target\/generated-test-sources\/test-annotations=/optional=/true=/=/maven.pomderived=/true=/=/ignore_optional_problems=/true=/=/m2e-apt=/true=/=/test=/true=/" element2="/target\/generated-sources\/annotations=/optional=/true=/=/maven.pomderived=/true=/=/ignore_optional_problems=/true=/=/m2e-apt=/true=/" elements="2" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1599589914133" subPackages="false" version="1.0"/>
+</session>
