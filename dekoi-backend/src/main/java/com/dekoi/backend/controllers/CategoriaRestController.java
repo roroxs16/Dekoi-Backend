@@ -42,11 +42,6 @@ public class CategoriaRestController {
 		return categoriaService.findAll();
 	}
 	
-	@GetMapping("/categoria/page/{page}")
-	public Page<Categoria> categoriaPageable(@PathVariable Integer page) {
-		Pageable pageable = PageRequest.of(page, 4);
-		return categoriaService.findAll(pageable);
-	}
 	
 	@GetMapping("/categoria/{id}")
 	public ResponseEntity<?> showCategoria(@PathVariable Long id) {

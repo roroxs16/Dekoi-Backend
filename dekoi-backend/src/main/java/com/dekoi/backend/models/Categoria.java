@@ -12,7 +12,6 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 public class Categoria implements Serializable{
 
-
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	public long id;
@@ -20,6 +19,11 @@ public class Categoria implements Serializable{
 	@Column(name="nombre", nullable = false)
 	@NotEmpty(message = "El nombre de la categoria no puede estar vacio")
 	public String nombre;
+
+	public Categoria(long id, @NotEmpty(message = "El nombre de la categoria no puede estar vacio") String nombre) {
+		this.id = id;
+		this.nombre = nombre;
+	}
 
 	public long getId() {
 		return id;

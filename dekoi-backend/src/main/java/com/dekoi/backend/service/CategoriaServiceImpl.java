@@ -26,12 +26,6 @@ public class CategoriaServiceImpl implements ICategoriaService{
 
 	@Override
 	@Transactional(readOnly=true)
-	public Page<Categoria> findAll(Pageable pageable) {
-		return categoriaDao.findAll(pageable);
-	}
-
-	@Override
-	@Transactional(readOnly=true)
 	public Categoria findById(Long id) {
 		return categoriaDao.findById(id).orElse(null);
 	}
