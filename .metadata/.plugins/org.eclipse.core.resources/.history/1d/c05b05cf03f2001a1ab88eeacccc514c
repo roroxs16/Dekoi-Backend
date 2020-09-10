@@ -1,5 +1,0 @@
-package com.dekoi.backend.dao;
-
-public interface ICategoriaDao {
-
-}
