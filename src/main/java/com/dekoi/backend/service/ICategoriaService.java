@@ -11,6 +11,7 @@ public interface ICategoriaService {
 
 	public List<Categoria> findAll();
 	
+	public Page<Categoria> findAll(Pageable pageable);
 	
 	public Categoria findById(Long id);
 	

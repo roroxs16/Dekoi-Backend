@@ -42,4 +42,10 @@ public class CategoriaServiceImpl implements ICategoriaService{
 		categoriaDao.deleteById(id);
 	}
 
+	@Override
+	public Page<Categoria> findAll(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return categoriaDao.findAll(pageable);
+	}
+
 }
