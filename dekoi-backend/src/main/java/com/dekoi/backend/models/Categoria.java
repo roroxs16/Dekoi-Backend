@@ -1,24 +1,29 @@
 package com.dekoi.backend.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Categoria implements Serializable{
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	public long id;
 	
 	@Column(name="nombre", nullable = false)
 	@NotEmpty(message = "El nombre de la categoria no puede estar vacio")
 	public String nombre;
+	
+	@OneToMany(mappedBy = "categoria")
+	private List<Producto> productos;
 
 	public Categoria(long id, @NotEmpty(message = "El nombre de la categoria no puede estar vacio") String nombre) {
 		this.id = id;
