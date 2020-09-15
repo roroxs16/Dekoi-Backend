@@ -101,7 +101,7 @@ public class CategoriaRestController {
 		}
 		
 		response.put("mensaje", "La Categoria ha sido creado con éxito!");
-		response.put("cliente", CategoriaNew);
+		response.put("categoria", CategoriaNew);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
@@ -145,7 +145,7 @@ public class CategoriaRestController {
 		}
 
 		response.put("mensaje", "La Categoria ha sido actualizado con éxito!");
-		response.put("cliente", categoriaActualizada);
+		response.put("categoria", categoriaActualizada);
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}

@@ -3,6 +3,7 @@ package com.dekoi.backend.models;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Categoria implements Serializable{
@@ -22,10 +25,13 @@ public class Categoria implements Serializable{
 	@NotEmpty(message = "El nombre de la categoria no puede estar vacio")
 	public String nombre;
 	
-	@OneToMany(mappedBy = "categoria")
+	@JsonManagedReference
+	@OneToMany(cascade= {(CascadeType.ALL)},mappedBy = "categoria")
 	private List<Producto> productos;
 
-	public Categoria(long id, @NotEmpty(message = "El nombre de la categoria no puede estar vacio") String nombre) {
+	
+	
+	public Categoria(long id, String nombre) {
 		this.id = id;
 		this.nombre = nombre;
 	}
@@ -33,6 +39,12 @@ public class Categoria implements Serializable{
 	
 	}
 
+	public List<Producto> getProductos() {
+		return productos;
+	}
+	public void setProductos(Producto producto) {
+		this.productos.add(producto);
+	}
 	public long getId() {
 		return id;
 	}

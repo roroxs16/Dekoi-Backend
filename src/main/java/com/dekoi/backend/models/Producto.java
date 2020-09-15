@@ -12,6 +12,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Producto implements Serializable {
 
@@ -36,25 +39,21 @@ public class Producto implements Serializable {
 	private int valorUnitario;
 
 	@NotNull
-	@NotEmpty(message = "La imagen no puede estar vacia")
-	private String imagen;
-
-	@NotNull
 	@NotEmpty
 	private String codigoDeBarra;
 
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "categoria_id", nullable = false)
+	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 	private Categoria categoria;
 
-	public Producto(long id, String nombre, int stock, String descripcion, int valorUnitario, String imagen,
-			String codigoDeBarra, Categoria categoria) {
+	public Producto(long id, String nombre, int stock, String descripcion, int valorUnitario, String codigoDeBarra, Categoria categoria) {
 		this.id = id;
 		this.nombre = nombre;
 		this.stock = stock;
 		this.descripcion = descripcion;
 		this.valorUnitario = valorUnitario;
-		this.imagen = imagen;
 		this.codigoDeBarra = codigoDeBarra;
 		this.categoria = categoria;
 	}
@@ -109,14 +108,6 @@ public class Producto implements Serializable {
 
 	public void setValorUnitario(int valorUnitario) {
 		this.valorUnitario = valorUnitario;
-	}
-
-	public String getImagen() {
-		return imagen;
-	}
-
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
 	}
 
 	public String getCodigoDeBarra() {

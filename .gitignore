@@ -9,3 +9,4 @@
 .settings
 .springBeans
 .sts4-cache
+target/m2e-wtp/web-resources/META-INF/maven/com.dekoi/dekoi-backend/pom.properties
