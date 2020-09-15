@@ -1,3 +1,12 @@
 /.metadata/
-.metadata/.plugins/com.genuitec.eclipse.devstyle/recent.json
-.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
+.metadata
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+target/m2e-wtp/web-resources/META-INF/maven/com.dekoi/dekoi-backend/pom.properties

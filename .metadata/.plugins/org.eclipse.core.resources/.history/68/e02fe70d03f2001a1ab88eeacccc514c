@@ -1,8 +1,0 @@
-package com.dekoi.backend.models;
-
-import javax.persistence.Entity;
-
-@Entity
-public class Categoria {
-
-}
