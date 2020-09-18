@@ -29,8 +29,6 @@ public class Categoria implements Serializable{
 	@OneToMany(cascade= {(CascadeType.ALL)},mappedBy = "categoria")
 	private List<Producto> productos;
 
-	
-	
 	public Categoria(long id, String nombre) {
 		this.id = id;
 		this.nombre = nombre;

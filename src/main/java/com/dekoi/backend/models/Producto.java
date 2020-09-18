@@ -1,19 +1,23 @@
 package com.dekoi.backend.models;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Producto implements Serializable {
@@ -47,6 +51,11 @@ public class Producto implements Serializable {
 	@JoinColumn(name = "categoria_id", nullable = false)
 	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 	private Categoria categoria;
+	
+	@JsonManagedReference
+	@OneToMany(cascade= {(CascadeType.ALL)},mappedBy = "producto")
+	private List<Imagen> imagenes;
+	
 
 	public Producto(long id, String nombre, int stock, String descripcion, int valorUnitario, String codigoDeBarra, Categoria categoria) {
 		this.id = id;
@@ -117,6 +126,17 @@ public class Producto implements Serializable {
 	public void setCodigoDeBarra(String codigoDeBarra) {
 		this.codigoDeBarra = codigoDeBarra;
 	}
+
+		
+	public List<Imagen> getImagenes() {
+		return imagenes;
+	}
+
+	public void setImagenes(List<Imagen> imagenes) {
+		this.imagenes = imagenes;
+	}
+
+
 
 	private static final long serialVersionUID = 4837610407696210734L;
 
