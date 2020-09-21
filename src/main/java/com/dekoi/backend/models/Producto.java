@@ -49,15 +49,15 @@ public class Producto implements Serializable {
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "categoria_id", nullable = false)
-	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Categoria categoria;
-	
-	@JsonManagedReference
-	@OneToMany(cascade= {(CascadeType.ALL)},mappedBy = "producto")
-	private List<Imagen> imagenes;
-	
 
-	public Producto(long id, String nombre, int stock, String descripcion, int valorUnitario, String codigoDeBarra, Categoria categoria) {
+	@JsonManagedReference
+	@OneToMany(cascade = { (CascadeType.ALL) }, mappedBy = "producto")
+	private List<Imagen> imagenes;
+
+	public Producto(long id, String nombre, int stock, String descripcion, int valorUnitario, String codigoDeBarra,
+			Categoria categoria) {
 		this.id = id;
 		this.nombre = nombre;
 		this.stock = stock;
@@ -127,16 +127,13 @@ public class Producto implements Serializable {
 		this.codigoDeBarra = codigoDeBarra;
 	}
 
-		
 	public List<Imagen> getImagenes() {
 		return imagenes;
 	}
 
-	public void setImagenes(List<Imagen> imagenes) {
-		this.imagenes = imagenes;
+	public void setImagenes(Imagen imagene) {
+		this.imagenes.add(imagene);
 	}
-
-
 
 	private static final long serialVersionUID = 4837610407696210734L;
 

@@ -21,8 +21,7 @@ public class Imagen implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotNull
-	@NotEmpty
+	
 	private String nombre;
 
 	@JsonBackReference
@@ -37,13 +36,9 @@ public class Imagen implements Serializable {
 		this.producto = producto;
 	}
 
-	
-	
 	public Imagen() {
-		
+
 	}
-
-
 
 	public Long getId() {
 		return id;

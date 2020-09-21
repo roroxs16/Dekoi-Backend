@@ -10,3 +10,15 @@
 .springBeans
 .sts4-cache
 target/m2e-wtp/web-resources/META-INF/maven/com.dekoi/dekoi-backend/pom.properties
+target/m2e-wtp/web-resources/META-INF/maven/com.dekoi/dekoi-backend/pom.properties
+target/classes/com/dekoi/backend/service/ImagenServiceImpl.class
+target/classes/com/dekoi/backend/service/IImagenService.class
+target/classes/com/dekoi/backend/models/Producto.class
+target/m2e-wtp/web-resources/META-INF/maven/com.dekoi/dekoi-backend/pom.properties
+target/classes/com/dekoi/backend/dao/IImagenDao.class
+target/classes/com/dekoi/backend/models/Producto.class
+target/classes/com/dekoi/backend/models/Imagen.class
+target/classes/com/dekoi/backend/models/Producto.class
+target/m2e-wtp/web-resources/META-INF/maven/com.dekoi/dekoi-backend/pom.properties
+target/classes/com/dekoi/backend/models/Producto.class
+target/classes/com/dekoi/backend/models/Imagen.class
