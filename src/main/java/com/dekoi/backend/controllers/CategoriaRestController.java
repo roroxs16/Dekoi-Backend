@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dekoi.backend.service.ICategoriaService;
 
-@CrossOrigin (origins = {"https://localhost:4200"})
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/api")
 public class CategoriaRestController {
