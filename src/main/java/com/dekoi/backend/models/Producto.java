@@ -1,10 +1,12 @@
 package com.dekoi.backend.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,14 +48,15 @@ public class Producto implements Serializable {
 	@NotEmpty
 	private String codigoDeBarra;
 
-	@JsonBackReference
-	@ManyToOne
+
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "categoria_id", nullable = false)
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	@JsonIgnoreProperties({ "productos" ,"hibernateLazyInitializer", "handler" })
 	private Categoria categoria;
 
-	@JsonManagedReference
-	@OneToMany(cascade = { (CascadeType.ALL) }, mappedBy = "producto")
+	
+	@OneToMany(cascade = { (CascadeType.ALL) }, mappedBy = "producto", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({ "producto", "hibernateLazyInitializer", "handler" })
 	private List<Imagen> imagenes;
 
 	public Producto(long id, String nombre, int stock, String descripcion, int valorUnitario, String codigoDeBarra,
@@ -68,7 +71,7 @@ public class Producto implements Serializable {
 	}
 
 	public Producto() {
-
+		this.imagenes = new ArrayList<>();
 	}
 
 	public Categoria getCategoria() {
@@ -131,9 +134,13 @@ public class Producto implements Serializable {
 		return imagenes;
 	}
 
-	public void setImagenes(Imagen imagene) {
-		this.imagenes.add(imagene);
+	
+
+	public void setImagenes(List<Imagen> imagenes) {
+		this.imagenes = imagenes;
 	}
+
+
 
 	private static final long serialVersionUID = 4837610407696210734L;
 

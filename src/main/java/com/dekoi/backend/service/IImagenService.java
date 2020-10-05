@@ -15,5 +15,6 @@ public interface IImagenService {
 	
 	public void delete(Long id);
 	
+	public List<Imagen> findByProductId(Long id);
 	
 }

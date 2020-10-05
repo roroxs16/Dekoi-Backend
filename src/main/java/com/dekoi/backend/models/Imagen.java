@@ -24,10 +24,10 @@ public class Imagen implements Serializable {
 	
 	private String nombre;
 
-	@JsonBackReference
+	
 	@ManyToOne
 	@JoinColumn(name = "producto_id", nullable = false)
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	@JsonIgnoreProperties({ "imagenes","hibernateLazyInitializer", "handler" })
 	private Producto producto;
 
 	public Imagen(Long id, String nombre, Producto producto) {

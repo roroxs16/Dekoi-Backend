@@ -44,4 +44,10 @@ public class ImagenServiceImpl implements IImagenService {
 		
 	}
 
+	@Override
+	public List<Imagen> findByProductId(Long id) {
+		// TODO Auto-generated method stub
+		return imagenDao.listarImagenPorIdDeProducto(id);
+	}
+
 }

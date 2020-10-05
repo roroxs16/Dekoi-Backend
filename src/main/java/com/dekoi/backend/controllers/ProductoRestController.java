@@ -41,7 +41,7 @@ import com.dekoi.backend.models.Categoria;
 import com.dekoi.backend.models.Imagen;
 import com.dekoi.backend.models.Producto;
 
-@CrossOrigin(origins = { "https://localhost:4200" })
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/api")
 public class ProductoRestController {
@@ -116,7 +116,8 @@ public class ProductoRestController {
 		try {
 
 			productoNuevo = productoService.save(producto);
-			categoria.setProductos(productoNuevo);
+//			categoria.setProductos(productoNuevo);
+			
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -228,7 +229,7 @@ public class ProductoRestController {
 			imagen.setNombre(nombreArchivo);
 			imagen.setProducto(producto);
 
-			producto.setImagenes(imagen);
+//			producto.setImagenes(imagen);
 
 			imagenService.save(imagen);
 
@@ -278,6 +279,15 @@ public class ProductoRestController {
 		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
 
 		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
+	}
+	
+	@GetMapping("/producto/imagenes/{id}")
+	public List<Imagen> probandoQuery(@PathVariable Long id){
+		
+		
+		return imagenService.findByProductId(id);
+
+		
 	}
 
 }
