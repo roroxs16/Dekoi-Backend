@@ -1,14 +1,25 @@
 package com.dekoi.backend.models;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+import javax.validation.Valid;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="compraProducto")
 public class Compra implements Serializable {
 	
 	
@@ -17,11 +28,32 @@ public class Compra implements Serializable {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private long id;
 	
-	private Date fechaDeCompra;
+	@JsonFormat(pattern="dd/MM/yyyy")
+	private LocalDate fechaDeCompra;
 	
 	private double valorTotal;
 	
 	private boolean estado;
+	
+	@OneToMany(mappedBy="pk.compra")
+	@Valid
+	private List<CompraProducto> compraProductos = new ArrayList<>();
+	
+	
+	@Transient
+	public double getValorTotal() {
+		this.valorTotal = 0D;
+		List<CompraProducto> compraProductos = getCompraProductos();
+		for (CompraProducto cp: compraProductos) {
+			this.valorTotal+= cp.getTotalPrice();
+		}
+		return this.valorTotal;
+	}
+	
+	@Transient
+	public int getCantidadProductos() {
+		return this.compraProductos.size();
+	}
 
 	public long getId() {
 		return id;
@@ -31,20 +63,18 @@ public class Compra implements Serializable {
 		this.id = id;
 	}
 
-	public Date getFechaDeCompra() {
+	public LocalDate getFechaDeCompra() {
 		return fechaDeCompra;
 	}
 
-	public void setFechaDeCompra(Date fechaDeCompra) {
-		this.fechaDeCompra = fechaDeCompra;
+	public void setFechaDeCompra(LocalDate localDate) {
+		this.fechaDeCompra = localDate;
 	}
 
-	public double getValorTotal() {
-		return valorTotal;
-	}
+	
 
-	public void setValorTotal(double valorTotal) {
-		this.valorTotal = valorTotal;
+	public void setValorTotal() {
+		this.valorTotal = getValorTotal();
 	}
 
 	public boolean isEstado() {
@@ -55,6 +85,18 @@ public class Compra implements Serializable {
 		this.estado = estado;
 	}
 	
+	
+	public List<CompraProducto> getCompraProductos() {
+		return compraProductos;
+	}
+
+	public void setCompraProductos(List<CompraProducto> compraProductos) {
+		this.compraProductos = compraProductos;
+	}
+
+
+
+
 	/**
 	 * 
 	 */

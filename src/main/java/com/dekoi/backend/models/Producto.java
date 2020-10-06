@@ -17,9 +17,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 public class Producto implements Serializable {
@@ -42,7 +42,7 @@ public class Producto implements Serializable {
 
 	@NotNull
 	@Min(value = 0, message = "El valor del producto no puede ser menor a 0")
-	private int valorUnitario;
+	private double valorUnitario;
 
 	@NotNull
 	@NotEmpty
@@ -59,7 +59,7 @@ public class Producto implements Serializable {
 	@JsonIgnoreProperties({ "producto", "hibernateLazyInitializer", "handler" })
 	private List<Imagen> imagenes;
 
-	public Producto(long id, String nombre, int stock, String descripcion, int valorUnitario, String codigoDeBarra,
+	public Producto(long id, String nombre, int stock, String descripcion, double valorUnitario, String codigoDeBarra,
 			Categoria categoria) {
 		this.id = id;
 		this.nombre = nombre;
@@ -114,11 +114,11 @@ public class Producto implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public int getValorUnitario() {
+	public double getValorUnitario() {
 		return valorUnitario;
 	}
 
-	public void setValorUnitario(int valorUnitario) {
+	public void setValorUnitario(double valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
 
