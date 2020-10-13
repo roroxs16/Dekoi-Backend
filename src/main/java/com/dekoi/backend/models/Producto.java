@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -22,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@Table(name="producto")
 public class Producto implements Serializable {
 
 	@Id
@@ -44,10 +46,6 @@ public class Producto implements Serializable {
 	@Min(value = 0, message = "El valor del producto no puede ser menor a 0")
 	private int valorUnitario;
 
-	@NotNull
-	@NotEmpty
-	private String codigoDeBarra;
-
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "categoria_id", nullable = false)
@@ -59,14 +57,13 @@ public class Producto implements Serializable {
 	@JsonIgnoreProperties({ "producto", "hibernateLazyInitializer", "handler" })
 	private List<Imagen> imagenes;
 
-	public Producto(long id, String nombre, int stock, String descripcion, int valorUnitario, String codigoDeBarra,
-			Categoria categoria) {
+	public Producto(long id, String nombre, int stock, String descripcion, int valorUnitario, 			Categoria categoria) {
 		this.id = id;
 		this.nombre = nombre;
 		this.stock = stock;
 		this.descripcion = descripcion;
 		this.valorUnitario = valorUnitario;
-		this.codigoDeBarra = codigoDeBarra;
+
 		this.categoria = categoria;
 	}
 
@@ -122,13 +119,7 @@ public class Producto implements Serializable {
 		this.valorUnitario = valorUnitario;
 	}
 
-	public String getCodigoDeBarra() {
-		return codigoDeBarra;
-	}
 
-	public void setCodigoDeBarra(String codigoDeBarra) {
-		this.codigoDeBarra = codigoDeBarra;
-	}
 
 	public List<Imagen> getImagenes() {
 		return imagenes;

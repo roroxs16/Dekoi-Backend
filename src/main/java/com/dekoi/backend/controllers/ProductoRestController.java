@@ -65,7 +65,7 @@ public class ProductoRestController {
 
 	@GetMapping("/producto/page/{page}")
 	public Page<Producto> listarProductosPaginables(@PathVariable Integer page) {
-		Pageable pageable = PageRequest.of(page, 4);
+		Pageable pageable = PageRequest.of(page, 6);
 		return productoService.findAll(pageable);
 	}
 
@@ -158,7 +158,6 @@ public class ProductoRestController {
 		}
 
 		try {
-			productoActual.setCodigoDeBarra(producto.getCodigoDeBarra());
 			productoActual.setNombre(producto.getNombre());
 			productoActual.setDescripcion(producto.getDescripcion());
 			productoActual.setStock(producto.getStock());
