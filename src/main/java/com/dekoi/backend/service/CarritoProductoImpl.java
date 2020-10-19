@@ -3,10 +3,12 @@ package com.dekoi.backend.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.dekoi.backend.dao.ICarritoProductoDao;
 import com.dekoi.backend.models.CarritoProducto;
 
+@Service
 public class CarritoProductoImpl implements ICarritoProductoService{
 
 	@Autowired
@@ -14,25 +16,25 @@ public class CarritoProductoImpl implements ICarritoProductoService{
 	
 	@Override
 	public List<CarritoProducto> findAll() {
-		// TODO Auto-generated method stub
+		
 		return carritoProductoDao.findAll();
 	}
 
 	@Override
 	public List<CarritoProducto> findByCarritoId(Long id) {
-		// TODO Auto-generated method stub
+	
 		return carritoProductoDao.listarCarritoProductoPorIdDeCarrito(id);
 	}
 
 	@Override
 	public CarritoProducto findById(Long id) {
-		// TODO Auto-generated method stub
+	
 		return carritoProductoDao.findById(id).orElse(null);
 	}
 
 	@Override
 	public CarritoProducto save(CarritoProducto carritoProducto) {
-		// TODO Auto-generated method stub
+		
 		return carritoProductoDao.save(carritoProducto);
 	}
 

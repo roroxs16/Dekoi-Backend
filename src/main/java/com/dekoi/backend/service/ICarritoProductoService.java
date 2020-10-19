@@ -17,4 +17,6 @@ public interface ICarritoProductoService {
 	public CarritoProducto save(CarritoProducto carritoProducto);
 	
 	public void delete(Long id);
+//	
+//	public void deleteByProductoId(Long id);
 }

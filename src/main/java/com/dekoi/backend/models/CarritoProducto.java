@@ -21,7 +21,7 @@ public class CarritoProducto {
 	private int cantidad;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "carrito_id", nullable = false)
+	@JoinColumn(name = "carrito_id", nullable = true)
 	@JsonIgnoreProperties({ "carritosProductos" ,"hibernateLazyInitializer", "handler" })
 	private Carrito carrito;
 	
@@ -30,14 +30,17 @@ public class CarritoProducto {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Producto producto;
 	
-	public CarritoProducto(long id, int cantidad, Carrito carrito, Producto producto) {
+	public CarritoProducto(long id, int cantidad, Producto producto) {
 		
 		this.id = id;
 		this.cantidad = cantidad;
-		this.carrito = carrito;
 		this.producto = producto;
 	}
 
+	public CarritoProducto() {
+		
+
+	}
 	public long getId() {
 		return id;
 	}

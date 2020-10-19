@@ -228,7 +228,6 @@ public class ProductoRestController {
 			imagen.setNombre(nombreArchivo);
 			imagen.setProducto(producto);
 
-//			producto.setImagenes(imagen);
 
 			imagenService.save(imagen);
 
