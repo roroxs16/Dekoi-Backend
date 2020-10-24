@@ -29,20 +29,18 @@ public class Compra {
 	
 	private boolean estado;
 	
-	@OneToOne(cascade= CascadeType.ALL)
-	@JoinColumn(name= "carrito_id", referencedColumnName = "id")
-	private Carrito carrito;
+	
 
 	
 	
-	public Compra(long id, Date fechaCompra, double valorTotal, String codigoEnvio, boolean estado, Carrito carrito) {
+	public Compra(long id, Date fechaCompra, double valorTotal, String codigoEnvio, boolean estado) {
 		
 		this.id = id;
 		this.fechaCompra = fechaCompra;
 		this.valorTotal = valorTotal;
 		this.codigoEnvio = codigoEnvio;
 		this.estado = estado;
-		this.carrito = carrito;
+	
 	}
 	
 	
@@ -92,13 +90,6 @@ public class Compra {
 		this.estado = estado;
 	}
 
-	public Carrito getCarrito() {
-		return carrito;
-	}
-
-	public void setCarrito(Carrito carrito) {
-		this.carrito = carrito;
-	}
 	
 	
 }

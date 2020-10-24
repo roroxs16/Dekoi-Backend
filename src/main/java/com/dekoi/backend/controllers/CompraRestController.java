@@ -29,7 +29,7 @@ import com.dekoi.backend.service.ICarritoService;
 import com.dekoi.backend.service.ICompraService;
 import com.dekoi.backend.service.IProductoService;
 
-@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins = { "http://localhost:4200","*" })
 @RestController
 @RequestMapping("/api")
 public class CompraRestController {
@@ -45,12 +45,15 @@ public class CompraRestController {
 	
 	@Autowired
 	private ICompraService compraService;
+	
 
 	@RequestMapping("/carrito/{id}")
 	public List<CarritoProducto> listarCarritoDeCompra(@PathVariable Long id) {
-		System.out.println(id);
+		
 		return carritoProductoService.findByCarritoId(id);
 	}
+	
+	
 
 	@PostMapping("/carrito/crear")
 	public ResponseEntity<?> crearCarrito() {
@@ -150,7 +153,7 @@ public class CompraRestController {
 			compra.setFechaCompra(new Date());
 			compra.setValorTotal(valorTotal);
 			compra.setEstado(false);
-			compra.setCarrito(carrito);
+			
 			
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
