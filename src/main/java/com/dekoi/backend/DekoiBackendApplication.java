@@ -18,13 +18,13 @@ public class DekoiBackendApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		String  password ="000ac28ea465";
-		
-		for (int i=0; i<3;i++) {
-			String passEncode=bCrypt.encode(password);
-			System.out.println(passEncode);
-		}
-		
+//		String  password ="000ac28ea465";
+//		
+//		for (int i=0; i<3;i++) {
+//			String passEncode=bCrypt.encode(password);
+//			System.out.println(passEncode);
+//		}
+//		
 		
 	}
 

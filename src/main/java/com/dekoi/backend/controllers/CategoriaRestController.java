@@ -19,7 +19,7 @@ import org.springframework.data.domain.Pageable;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -75,6 +75,7 @@ public class CategoriaRestController {
 		return new ResponseEntity<Categoria>(categoria, HttpStatus.OK);
 	}
 
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/categoria")
 	public ResponseEntity<?> createCategoria(@Valid @RequestBody Categoria categoria, BindingResult result) {
 		
@@ -105,6 +106,7 @@ public class CategoriaRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@PutMapping("/categoria/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody Categoria categoria, BindingResult result, @PathVariable Long id) {
 
@@ -150,6 +152,7 @@ public class CategoriaRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/categoria/{id}")
 	public ResponseEntity<?> deleteCategoria(@PathVariable Long id) {
 		
