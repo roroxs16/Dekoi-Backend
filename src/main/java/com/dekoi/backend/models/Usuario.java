@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="usuarios")
 public class Usuario implements Serializable{
@@ -37,7 +39,10 @@ public class Usuario implements Serializable{
 	
 	private String ciudad;
 	
+	private long numeroTelefono;
+	
 	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy") 
 	private Date fechaNacimiento;
 	
 	private String password;
@@ -50,7 +55,7 @@ public class Usuario implements Serializable{
 	
 
 	@OneToOne(cascade= CascadeType.ALL)
-	@JoinColumn(name= "carrito_id", referencedColumnName = "id")
+	@JoinColumn(name = "carrito_id", referencedColumnName = "id")
 	private Carrito carrito;
 	
 	
@@ -58,6 +63,20 @@ public class Usuario implements Serializable{
 
 	public Carrito getCarrito() {
 		return carrito;
+	}
+
+
+
+
+	public long getNumeroTelefono() {
+		return numeroTelefono;
+	}
+
+
+
+
+	public void setNumeroTelefono(long numeroTelefono) {
+		this.numeroTelefono = numeroTelefono;
 	}
 
 
