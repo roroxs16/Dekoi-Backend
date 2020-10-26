@@ -42,4 +42,10 @@ public class UsuarioService implements UserDetailsService, IUsuarioService{
 		return usuarioDao.findByEmail(username);
 	}
 
+	@Override
+	public Usuario save(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return usuarioDao.save(usuario);
+	}
+
 }
