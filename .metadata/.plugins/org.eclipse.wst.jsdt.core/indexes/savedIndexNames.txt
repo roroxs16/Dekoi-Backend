@@ -1,6 +1,0 @@
-INDEX VERSION 1.4+C:\Users\ro080\Desktop\Proyecto Dekoi\Dekoi-Backend\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-204358310.index
-4109719038.index
-1027316223.index
-1910345809.index
-13232170.index

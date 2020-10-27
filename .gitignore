@@ -1,0 +1,13 @@
+/.metadata/
+.metadata
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+.target
+target/classes/com/dekoi/backend/controllers/UsuarioRestController.class
