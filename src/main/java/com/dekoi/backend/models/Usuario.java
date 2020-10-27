@@ -11,14 +11,16 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="usuarios")
@@ -54,15 +56,23 @@ public class Usuario implements Serializable{
 	private List<Role> roles;
 	
 
-	@OneToOne(cascade= CascadeType.ALL)
-	@JoinColumn(name = "carrito_id", referencedColumnName = "id")
-	private Carrito carrito;
+	@OneToMany(cascade = { (CascadeType.ALL) }, mappedBy = "usuario", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({ "usuario", "hibernateLazyInitializer", "handler" })
+	private List<Carrito> carritos;
 	
 	
 
 
-	public Carrito getCarrito() {
-		return carrito;
+
+	public List<Carrito> getCarritos() {
+		return carritos;
+	}
+
+
+
+
+	public void setCarritos(List<Carrito> carritos) {
+		this.carritos = carritos;
 	}
 
 
@@ -82,9 +92,6 @@ public class Usuario implements Serializable{
 
 
 
-	public void setCarrito(Carrito carrito) {
-		this.carrito = carrito;
-	}
 
 
 

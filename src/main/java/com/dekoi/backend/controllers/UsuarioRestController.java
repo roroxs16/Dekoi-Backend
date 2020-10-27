@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dekoi.backend.dao.IRoleDao;
 import com.dekoi.backend.models.Carrito;
 import com.dekoi.backend.models.Role;
 import com.dekoi.backend.models.Usuario;
+import com.dekoi.backend.service.ICarritoService;
 import com.dekoi.backend.service.IRoleService;
 import com.dekoi.backend.service.IUsuarioService;
 
@@ -40,6 +40,9 @@ public class UsuarioRestController {
 	private IRoleService roleService;
 	
 	@Autowired
+	private ICarritoService carritoService;
+	
+	@Autowired
 	private BCryptPasswordEncoder bCrypt;
 	
 	
@@ -53,6 +56,7 @@ public class UsuarioRestController {
 		Carrito carrito = new Carrito();
 		
 		List <Role> listRol = new ArrayList<Role>();
+		List <Carrito> carritos = new ArrayList<Carrito>();
 		
 		Role role = roleService.findByRole("ROLE_CLIENTE");
 		listRol.add(role);
@@ -68,10 +72,13 @@ public class UsuarioRestController {
 	
 		try {
 
-			carrito.setEstado(false);
+			carrito.setEstado(true);
+			carrito.setUsuario(usuarioCreado);
+			carritoService.save(carrito);
 			String passCoded = bCrypt.encode(usuarioCreado.getPassword());
+			carritos.add(carrito);
 			usuarioCreado.setPassword(passCoded);
-			usuarioCreado.setCarrito(carrito);
+			usuarioCreado.setCarritos(carritos);
 			usuario.setRoles(listRol);
 			usuarioService.save(usuarioCreado);
 			
