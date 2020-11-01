@@ -1,5 +1,6 @@
 package com.dekoi.backend.controllers;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -89,9 +92,53 @@ public class UsuarioRestController {
 		}
 
 		response.put("mensaje", "El usuario se ha registrado con exito!");
-		response.put("usuario", usuarioCreado);
+		
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
+	}
+	
+	@PutMapping("/usuario")
+	public ResponseEntity<?> editarUsuario(@RequestBody Usuario usuario) {
+
+		Map<String, Object> response = new HashMap<>();
+
+		Usuario usuarioEncontrado = usuarioService.findByUsername(usuario.getEmail());  
+		
+
+	
+		try {
+			usuarioEncontrado.setApellido(usuario.getApellido());
+			
+			usuarioEncontrado.setNombre(usuario.getNombre());
+			usuarioEncontrado.setCiudad(usuario.getCiudad());
+			usuarioEncontrado.setDireccion(usuario.getDireccion());
+			usuarioEncontrado.setFechaNacimiento(usuario.getFechaNacimiento());
+			usuarioEncontrado.setEmail(usuario.getEmail());
+			usuarioEncontrado.setNumeroTelefono(usuario.getNumeroTelefono());
+		
+			String passCoded = bCrypt.encode(usuario.getPassword());
+		
+			usuarioEncontrado.setPassword(passCoded);
+		
+			usuarioService.save(usuarioEncontrado);
+			
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar el insert en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		response.put("mensaje", "El usuario se ha modificado con exito!");
+		
+
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+
+	}
+	
+	@GetMapping("/usuario")
+	public Usuario getUserData(Principal principal) {
+		Usuario usuario = usuarioService.findByUsername(principal.getName());
+		return usuario;
 	}
 }

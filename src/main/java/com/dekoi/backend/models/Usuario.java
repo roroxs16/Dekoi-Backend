@@ -47,6 +47,7 @@ public class Usuario implements Serializable{
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy") 
 	private Date fechaNacimiento;
 	
+	@JsonIgnoreProperties
 	private String password;
 	
 	private String rut;
@@ -60,7 +61,9 @@ public class Usuario implements Serializable{
 	@JsonIgnoreProperties({ "usuario", "hibernateLazyInitializer", "handler" })
 	private List<Carrito> carritos;
 	
-	
+	@OneToMany(cascade = { (CascadeType.ALL) }, mappedBy = "usuario", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({ "usuario", "hibernateLazyInitializer", "handler" })
+	private List<Compra> compras;
 
 
 
@@ -92,6 +95,20 @@ public class Usuario implements Serializable{
 
 
 
+
+
+
+
+	public List<Compra> getCompras() {
+		return compras;
+	}
+
+
+
+
+	public void setCompras(List<Compra> compras) {
+		this.compras = compras;
+	}
 
 
 

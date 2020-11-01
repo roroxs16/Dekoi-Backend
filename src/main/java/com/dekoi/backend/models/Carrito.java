@@ -31,7 +31,7 @@ public class Carrito {
 	private List<CarritoProducto> carritosProductos;
 
 	@JsonIgnore
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "usuario_id", nullable = true)
 	@JsonIgnoreProperties({ "usuario","hibernateLazyInitializer", "handler" })
 	private Usuario usuario;
