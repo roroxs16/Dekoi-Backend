@@ -33,15 +33,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.dekoi.backend.service.ICategoriaService;
 import com.dekoi.backend.service.IImagenService;
 import com.dekoi.backend.service.IProductoService;
 import com.dekoi.backend.service.IUploadService;
-import com.dekoi.backend.models.Categoria;
 import com.dekoi.backend.models.Imagen;
 import com.dekoi.backend.models.Producto;
 
-@CrossOrigin(origins = { "http://localhost:4200","*" })
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api")
 public class ProductoRestController {
@@ -49,8 +47,7 @@ public class ProductoRestController {
 	@Autowired
 	private IProductoService productoService;
 
-	@Autowired
-	private ICategoriaService categoriaService;
+
 
 	@Autowired
 	private IImagenService imagenService;
@@ -99,7 +96,6 @@ public class ProductoRestController {
 
 		Producto productoNuevo = null;
 
-		Categoria categoria = null;
 
 		Map<String, Object> response = new HashMap<>();
 
@@ -112,12 +108,13 @@ public class ProductoRestController {
 			response.put("errors", errors);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
-		categoria = categoriaService.findById(producto.getCategoria().getId());
+		
+	
 
 		try {
 
 			productoNuevo = productoService.save(producto);
-//			categoria.setProductos(productoNuevo);
+
 			
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
@@ -209,6 +206,7 @@ public class ProductoRestController {
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/producto/img")
 	public ResponseEntity<?> saveImagen(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id) {
+		
 		Map<String, Object> response = new HashMap<>();
 
 		Producto producto = productoService.findById(id);

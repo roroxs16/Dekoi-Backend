@@ -18,8 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class UploadServiceImpl implements IUploadService {
 
-	private final static String DIRECTORIO_UPLOAD = "uploads";
+	//uploads para el servidor
+//	private final static String DIRECTORIO_UPLOAD = "home/rcifuentes/uploads";
 
+	//local
+	private final static String DIRECTORIO_UPLOAD = "uploads";
+	
 	@Override
 	public Resource cargar(String fileName) throws MalformedURLException {
 		Path pathFile = getPath(fileName);

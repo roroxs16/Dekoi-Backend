@@ -26,7 +26,7 @@ import com.dekoi.backend.service.ICompraService;
 import com.dekoi.backend.service.IDireccionService;
 import com.dekoi.backend.service.IUsuarioService;
 
-@CrossOrigin(origins = { "http://localhost:4200","*" })
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api")
 public class DireccionRestController {

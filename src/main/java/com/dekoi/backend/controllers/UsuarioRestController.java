@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,13 +26,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dekoi.backend.models.Carrito;
+import com.dekoi.backend.models.Compra;
 import com.dekoi.backend.models.Role;
 import com.dekoi.backend.models.Usuario;
 import com.dekoi.backend.service.ICarritoService;
+import com.dekoi.backend.service.ICompraService;
 import com.dekoi.backend.service.IRoleService;
 import com.dekoi.backend.service.IUsuarioService;
 
-@CrossOrigin(origins = { "http://localhost:4200","*" })
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api")
 public class UsuarioRestController {
@@ -44,6 +47,10 @@ public class UsuarioRestController {
 	
 	@Autowired
 	private ICarritoService carritoService;
+	
+	@Autowired
+	private ICompraService compraService;
+	
 	
 	@Autowired
 	private BCryptPasswordEncoder bCrypt;
@@ -108,18 +115,15 @@ public class UsuarioRestController {
 
 	
 		try {
+			
 			usuarioEncontrado.setApellido(usuario.getApellido());
 			
 			usuarioEncontrado.setNombre(usuario.getNombre());
-			usuarioEncontrado.setCiudad(usuario.getCiudad());
-			usuarioEncontrado.setDireccion(usuario.getDireccion());
-			usuarioEncontrado.setFechaNacimiento(usuario.getFechaNacimiento());
+		
+			usuarioEncontrado.setRut(usuario.getRut());
+
 			usuarioEncontrado.setEmail(usuario.getEmail());
 			usuarioEncontrado.setNumeroTelefono(usuario.getNumeroTelefono());
-		
-			String passCoded = bCrypt.encode(usuario.getPassword());
-		
-			usuarioEncontrado.setPassword(passCoded);
 		
 			usuarioService.save(usuarioEncontrado);
 			
@@ -133,12 +137,56 @@ public class UsuarioRestController {
 		
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+ 
+	}
+	
+	@PutMapping("/usuariodireccion")
+	public ResponseEntity<?> editarUsuarioDireccion(@RequestBody Usuario usuario) {
 
+		Map<String, Object> response = new HashMap<>();
+
+		Usuario usuarioEncontrado = usuarioService.findByUsername(usuario.getEmail());  
+		
+
+	
+		try {
+			
+			usuarioEncontrado.setDireccion(usuario.getDireccion());
+			usuarioEncontrado.setCiudad(usuario.getCiudad());
+			usuarioService.save(usuarioEncontrado);
+			
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar el insert en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		response.put("mensaje", "El usuario se ha modificado con exito!");
+		
+
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+ 
 	}
 	
 	@GetMapping("/usuario")
 	public Usuario getUserData(Principal principal) {
 		Usuario usuario = usuarioService.findByUsername(principal.getName());
 		return usuario;
+	}
+	
+	@GetMapping("/usuario/compras")
+	public List<Compra> getAllComprasByUser(Principal principal) {
+		Usuario usuario = usuarioService.findByUsername(principal.getName());
+		
+		
+		return usuario.getCompras();
+	}
+	
+	@GetMapping("/usuario/compra/{id]")
+	public Compra getCompraByUser(@PathVariable long id,Principal principal) {
+		
+		
+		
+		return compraService.findById(id);
 	}
 }
