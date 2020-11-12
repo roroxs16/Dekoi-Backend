@@ -8,8 +8,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -18,7 +21,7 @@ public class Carrito {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+	//si su estado es true es carrito activo se puede comprar con ese carrito
 	private boolean estado;
 	
 	private double valor;
@@ -27,6 +30,12 @@ public class Carrito {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private List<CarritoProducto> carritosProductos;
 
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "usuario_id", nullable = true)
+	@JsonIgnoreProperties({ "usuario","hibernateLazyInitializer", "handler" })
+	private Usuario usuario;
+	
 	public Carrito() {
 		
 	}
@@ -36,6 +45,15 @@ public class Carrito {
 		this.id = id;
 		this.estado = estado;
 		this.valor = valor;
+	}
+
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public long getId() {

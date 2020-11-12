@@ -32,4 +32,28 @@ public class CompraServiceImpl implements ICompraService{
 		return compraDao.findById(id).orElse(null);
 	}
 
+	@Override
+	public Compra findCompraByUserId(long id) {
+		// TODO Auto-generated method stub
+		return compraDao.findCompraByUserId(id);
+	}
+
+	@Override
+	public List<Compra> findAllComprasById(long id) {
+		// TODO Auto-generated method stub
+		return compraDao.findAllComprasById(id);
+	}
+
+	@Override
+	public List<Compra> findAllComprasByState(boolean estado) {
+		// TODO Auto-generated method stub
+		return compraDao.findAllComprasByState(estado);
+	}
+
+	@Override
+	public Compra findCompraByState(boolean estado) {
+		// TODO Auto-generated method stub
+		return compraDao.findCompraByEstado(estado);
+	}
+
 }
