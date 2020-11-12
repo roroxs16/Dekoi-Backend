@@ -22,7 +22,7 @@ public class CarritoProducto {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "carrito_id", nullable = true)
-	@JsonIgnoreProperties({ "carritosProductos" ,"hibernateLazyInitializer", "handler" })
+	@JsonIgnoreProperties({ "carrito" ,"hibernateLazyInitializer", "handler" })
 	private Carrito carrito;
 	
 	@ManyToOne(fetch=FetchType.LAZY)

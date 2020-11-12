@@ -8,9 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Compra {
@@ -28,10 +32,20 @@ public class Compra {
 	private String codigoEnvio;
 	
 	private boolean estado;
-	
-	
 
+	@OneToOne
+    @JoinColumn(name="carrito_id")
+    private Carrito carrito;
 	
+	@OneToOne
+    @JoinColumn(name="direccion_id")
+    private Direccion direccion;
+	
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "usuario_id", nullable = true)
+	@JsonIgnoreProperties({ "compras","hibernateLazyInitializer", "handler" })
+	private Usuario usuario;
 	
 	public Compra(long id, Date fechaCompra, double valorTotal, String codigoEnvio, boolean estado) {
 		
@@ -44,6 +58,48 @@ public class Compra {
 	}
 	
 	
+
+
+
+	public Carrito getCarrito() {
+		return carrito;
+	}
+
+
+
+
+
+	public void setCarrito(Carrito carrito) {
+		this.carrito = carrito;
+	}
+
+
+
+
+
+	public Direccion getDireccion() {
+		return direccion;
+	}
+
+
+
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
+	}
+
+
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+
 
 	public Compra() {
 	}
