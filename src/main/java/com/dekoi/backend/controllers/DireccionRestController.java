@@ -47,9 +47,7 @@ public class DireccionRestController {
 		Direccion direccionNueva = direccion;
 
 		Usuario usuario = usuarioService.findByUsername(principal.getName());
-		
-
-		
+				
 		Map<String, Object> response = new HashMap<>();
 
 		Compra searchCompra = new Compra();

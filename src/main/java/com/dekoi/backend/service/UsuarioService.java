@@ -48,4 +48,10 @@ public class UsuarioService implements UserDetailsService, IUsuarioService{
 		return usuarioDao.save(usuario);
 	}
 
+	@Override
+	public Usuario finById(long id) {
+		// TODO Auto-generated method stub
+		return usuarioDao.findById(id).orElse(null);
+	}
+
 }

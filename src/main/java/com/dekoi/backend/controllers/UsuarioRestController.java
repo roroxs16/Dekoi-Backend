@@ -182,7 +182,7 @@ public class UsuarioRestController {
 		return usuario.getCompras();
 	}
 	
-	@GetMapping("/usuario/compra/{id]")
+	@GetMapping("/usuario/compra/{id}")
 	public Compra getCompraByUser(@PathVariable long id,Principal principal) {
 		
 		
