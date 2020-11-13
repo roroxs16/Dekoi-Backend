@@ -7,4 +7,5 @@ public interface IUsuarioService {
 	public Usuario findByUsername(String username);
 	
 	public Usuario save(Usuario usuario);
+	public Usuario finById(long id);
 }

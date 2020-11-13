@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -273,16 +274,20 @@ public class CompraRestController {
 		response.put("compra", compra);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
-
-	@PostMapping("/compra/{id}")
-	public ResponseEntity<?> generateCompra(@RequestBody Compra compra, @PathVariable long id) {
+	
+	
+	@PutMapping("/compra/{id}")
+	public ResponseEntity<?> updateCompra(@RequestBody Compra compra, @PathVariable long id) {
 
 		Compra compraSeleccionada = compraService.findById(id);
-
+		
+		Usuario usuario = usuarioService.finById(compraSeleccionada.getUsuario().getId());
+		
 		Map<String, Object> response = new HashMap<>();
 
 		try {
 			compraSeleccionada.setCodigoEnvio(compra.getCodigoEnvio());
+			
 			compraSeleccionada.setEstado(compra.isEstado());
 
 			compraSeleccionada.setUsuario(compra.getUsuario());
@@ -291,6 +296,7 @@ public class CompraRestController {
 
 			compraSeleccionada.setFechaCompra(compra.getFechaCompra());
 			compraSeleccionada.setValorTotal(compra.getValorTotal());
+			compraSeleccionada.setUsuario(usuario);
 			compraService.save(compraSeleccionada);
 
 		} catch (DataAccessException e) {
