@@ -184,9 +184,6 @@ public class UsuarioRestController {
 	
 	@GetMapping("/usuario/compra/{id}")
 	public Compra getCompraByUser(@PathVariable long id,Principal principal) {
-		
-		
-		
 		return compraService.findById(id);
 	}
 }
