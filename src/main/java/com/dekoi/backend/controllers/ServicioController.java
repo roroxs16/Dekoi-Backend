@@ -4,14 +4,10 @@ import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,8 +15,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.validation.BindingResult;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,82 +27,69 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.dekoi.backend.service.IImagenService;
-import com.dekoi.backend.service.IProductoService;
+import com.dekoi.backend.service.IImagenServicioService;
+import com.dekoi.backend.service.IServicioService;
 import com.dekoi.backend.service.IUploadService;
-import com.dekoi.backend.models.Imagen;
-import com.dekoi.backend.models.Producto;
+import com.dekoi.backend.models.ImagenServicio;
+import com.dekoi.backend.models.Servicio;
 
 @CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api")
-public class ProductoRestController {
+public class ServicioController {
 
 	@Autowired
-	private IProductoService productoService;
+	private IServicioService servicioService;
 
 	@Autowired
-	private IImagenService imagenService;
+	private IImagenServicioService imagenServicioService;
 
 	@Autowired
 	private IUploadService uploadService;
 
-	@GetMapping("/producto")
-	public List<Producto> listarProductos() {
-		return productoService.findAll();
+	@GetMapping("/servicios")
+	public List<Servicio> listarServicio() {
+		return servicioService.findAll();
 	}
 
-	@GetMapping("/producto/page/{page}")
-	public Page<Producto> listarProductosPaginables(@PathVariable Integer page) {
+	@GetMapping("/servicios/page/{page}")
+	public Page<Servicio> listarServicioPaginables(@PathVariable Integer page) {
 		Pageable pageable = PageRequest.of(page, 9);
-		return productoService.findAll(pageable);
+		return servicioService.findAll(pageable);
 	}
 
-	@GetMapping("/producto/{id}")
-	public ResponseEntity<?> mostrarProducto(@PathVariable Long id) {
-
-		Producto producto = null;
-
+	@GetMapping("/servicio/{id}")
+	public ResponseEntity<?> mostrarServicio(@PathVariable Long id) {
+		Servicio servicio = null;
 		Map<String, Object> response = new HashMap<>();
 
 		try {
-			producto = productoService.findById(id);
+			servicio = servicioService.findById(id);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		if (producto == null) {
-			response.put("mensaje", "El producto ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
+		if (servicio == null) {
+			response.put("mensaje",
+					"El Servicio con ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-
-		return new ResponseEntity<Producto>(producto, HttpStatus.OK);
-
+		return new ResponseEntity<Servicio>(servicio, HttpStatus.OK);
 	}
 
 	@Secured("ROLE_ADMIN")
-	@PostMapping("/producto")
-	public ResponseEntity<?> crearProducto(@Valid @RequestBody Producto producto, BindingResult result) {
+	@PostMapping("/servicio")
+	public ResponseEntity<?> crearServicio(@RequestBody Servicio servicio) {
 
-		Producto productoNuevo = null;
+		Servicio servicioNuevo = null;
 
 		Map<String, Object> response = new HashMap<>();
 
-		if (result.hasErrors()) {
-
-			List<String> errors = result.getFieldErrors().stream()
-					.map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
-					.collect(Collectors.toList());
-
-			response.put("errors", errors);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-		}
-
 		try {
 
-			productoNuevo = productoService.save(producto);
+			servicioNuevo = servicioService.save(servicio);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
@@ -117,47 +98,33 @@ public class ProductoRestController {
 		}
 
 		response.put("mensaje", "El producto ha sido creado con exito!");
-		response.put("producto", productoNuevo);
+		response.put("servicio", servicioNuevo);
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
 	}
 
 	@Secured("ROLE_ADMIN")
-	@PutMapping("/producto/{id}")
-	public ResponseEntity<?> updateProducto(@Valid @RequestBody Producto producto, BindingResult result,
-			@PathVariable Long id) {
+	@PutMapping("/servicio/{id}")
+	public ResponseEntity<?> updateServicio(@RequestBody Servicio servicio, @PathVariable Long id) {
 
-		Producto productoActual = productoService.findById(id);
+		Servicio servicioActual = servicioService.findById(id);
 
-		Producto productoActualizado = null;
+		Servicio servicioActualizado = null;
 
 		Map<String, Object> response = new HashMap<>();
 
-		if (result.hasErrors()) {
-
-			List<String> errors = result.getFieldErrors().stream()
-					.map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
-					.collect(Collectors.toList());
-
-			response.put("errors", errors);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-		}
-
-		if (productoActual == null) {
+		if (servicioActual == null) {
 			response.put("mensaje", "Error: no se pudo editar, la Categoria con ID: "
 					.concat(id.toString().concat(" no existe en la base de datos!")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 
 		try {
-			productoActual.setNombre(producto.getNombre());
-			productoActual.setDescripcion(producto.getDescripcion());
-			productoActual.setStock(producto.getStock());
-			productoActual.setValorUnitario(producto.getValorUnitario());
-			productoActual.setCategoria(producto.getCategoria());
+			servicioActual.setNombre(servicio.getNombre());
+			servicioActual.setDescripcion(servicio.getDescripcion());
 
-			productoActualizado = productoService.save(productoActual);
+			servicioActualizado = servicioService.save(servicioActual);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al actualizar el Producto en la base de datos");
@@ -166,25 +133,25 @@ public class ProductoRestController {
 		}
 
 		response.put("mensaje", "El producto a ha sido actualizado con éxito!");
-		response.put("producto", productoActualizado);
+		response.put("servicio", servicioActualizado);
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
-
+	
 	@Secured("ROLE_ADMIN")
-	@DeleteMapping("/producto/{id}")
-	public ResponseEntity<?> deleteProducto(@PathVariable Long id) {
+	@DeleteMapping("/servicio/{id}")
+	public ResponseEntity<?> deleteServicio(@PathVariable Long id) {
 
 		Map<String, Object> response = new HashMap<>();
 
-		Producto producto = productoService.findById(id);
+		Servicio servicio = servicioService.findById(id);
 
 		try {
 
-			for (Imagen imagen : producto.getImagenes()) {
-				uploadService.eliminar(imagen.getNombre());
+			for (ImagenServicio imagenServicio : servicio.getImagenes()) {
+				uploadService.eliminar(imagenServicio.getNombre());
 			}
-			productoService.delete(id);
+			servicioService.delete(id);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al eliminar el producto de la base de datos");
@@ -196,16 +163,16 @@ public class ProductoRestController {
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
-
+	
 	@Secured("ROLE_ADMIN")
-	@PostMapping("/producto/img")
-	public ResponseEntity<?> saveImagen(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id) {
+	@PostMapping("/servicio/img")
+	public ResponseEntity<?> saveImagenServicio(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id) {
 
 		Map<String, Object> response = new HashMap<>();
 
-		Producto producto = productoService.findById(id);
+		Servicio servicio = servicioService.findById(id);
 
-		Imagen imagen = new Imagen();
+		ImagenServicio imagen = new ImagenServicio();
 
 		if (!archivo.isEmpty()) {
 
@@ -222,11 +189,11 @@ public class ProductoRestController {
 			}
 
 			imagen.setNombre(nombreArchivo);
-			imagen.setProducto(producto);
+			imagen.setServicio(servicio);
 
-			imagenService.save(imagen);
+			imagenServicioService.save(imagen);
 
-			response.put("producto", producto);
+			response.put("servicio", servicio);
 			response.put("mensaje", "Se ha subido correctamente la imagen: " + nombreArchivo);
 
 		}
@@ -234,31 +201,8 @@ public class ProductoRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
-	@Secured("ROLE_ADMIN")
-	@DeleteMapping("/producto/delete/img/{id}")
-	public ResponseEntity<?> eliminarFoto(@PathVariable Long id) {
-
-		Map<String, Object> response = new HashMap<>();
-		Imagen imagen = imagenService.findById(id);
-
-		try {
-
-			uploadService.eliminar(imagen.getNombre());
-			imagenService.delete(id);
-
-		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al eliminar la Imagen de la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
-		response.put("mensaje", "producto eliminado con éxito!");
-
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
-	}
-
-	@GetMapping("/uploads/img/{nombreFoto:.+}")
-	public ResponseEntity<Resource> verFoto(@PathVariable String nombreFoto) {
+	@GetMapping("/servicio/uploads/img/{nombreFoto:.+}")
+	public ResponseEntity<Resource> verFotoServicio(@PathVariable String nombreFoto) {
 
 		Resource recurso = null;
 
@@ -274,10 +218,10 @@ public class ProductoRestController {
 		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
 	}
 
-	@GetMapping("/producto/imagenes/{id}")
-	public List<Imagen> probandoQuery(@PathVariable Long id) {
+	@GetMapping("/servicio/imagenes/{id}")
+	public List<ImagenServicio> probandoQuery(@PathVariable Long id) {
 
-		return imagenService.findByProductId(id);
+		return imagenServicioService.findByServicioId(id);
 
 	}
 

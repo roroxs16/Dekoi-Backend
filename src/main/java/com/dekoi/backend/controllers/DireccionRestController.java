@@ -1,9 +1,7 @@
 package com.dekoi.backend.controllers;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -18,13 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dekoi.backend.models.Carrito;
 import com.dekoi.backend.models.Compra;
 import com.dekoi.backend.models.Direccion;
-import com.dekoi.backend.models.Usuario;
 import com.dekoi.backend.service.ICompraService;
 import com.dekoi.backend.service.IDireccionService;
-import com.dekoi.backend.service.IUsuarioService;
 
 @CrossOrigin(origins = { "*" })
 @RestController
@@ -35,34 +30,24 @@ public class DireccionRestController {
 	@Autowired
 	private IDireccionService direccionService;
 
-	@Autowired
-	private IUsuarioService usuarioService;
-	
+
 	@Autowired
 	private ICompraService compraService;
 	
 	@PostMapping("/direccion")
-	public ResponseEntity<?> crearProducto(@RequestBody Direccion direccion, Principal principal) {
+	public ResponseEntity<?> crearDireccion(@RequestBody Direccion direccion, Principal principal) {
 
 		Direccion direccionNueva = direccion;
 
-		Usuario usuario = usuarioService.findByUsername(principal.getName());
 				
 		Map<String, Object> response = new HashMap<>();
 
 		Compra searchCompra = new Compra();
 		
-//		for (Compra compra : usuario.getCompras()) {
-//			if (compra.isEstadoEnvio() == false) {
-//				searchCompra = compra;
-//				break;
-//			}
-//		}
 
 		try {
 			
 			direccionService.save(direccionNueva);
-//			searchCompra.setEstadoEnvio(true);
 			searchCompra.setDireccion(direccionNueva);
 			compraService.save(searchCompra);
 			

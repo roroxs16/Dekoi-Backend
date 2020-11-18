@@ -28,10 +28,10 @@ public class Servicio implements Serializable{
 	private String descripcion;
 	
 	
-//	@OneToMany(cascade = { (CascadeType.ALL) }, mappedBy = "servicio", fetch = FetchType.LAZY)
-//	@JsonIgnoreProperties({ "servicio", "hibernateLazyInitializer", "handler" })
-//	private List<Imagen> imagenes;
-//	
+	@OneToMany(cascade = { (CascadeType.ALL) }, mappedBy = "servicio", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({ "servicio", "hibernateLazyInitializer", "handler" })
+	private List<ImagenServicio> imagenes;
+
 	
 	@ManyToMany(mappedBy = "servicios")
     private List<Reunion> reuniones;
@@ -85,10 +85,17 @@ public class Servicio implements Serializable{
 	}
 
 
+	public List<ImagenServicio> getImagenes() {
+		return imagenes;
+	}
 
-	/**
-	 * 
-	 */
+
+
+	public void setImagenes(List<ImagenServicio> imagenes) {
+		this.imagenes = imagenes;
+	}
+
+
 	private static final long serialVersionUID = 4708172819658945356L;
 
 }
