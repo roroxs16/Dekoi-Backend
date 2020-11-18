@@ -36,3 +36,6 @@ INSERT INTO roles(nombre) VALUES('ROLE_CLIENTE');
 INSERT INTO usuarios_roles(usuario_id, roles_id) VALUES(1, 1);
 INSERT INTO usuarios_roles(usuario_id, roles_id) VALUES(2, 2);
 INSERT INTO usuarios_roles(usuario_id, roles_id) VALUES(3, 2);
+
+INSERT INTO servicios(id, descripcion,nombre) VALUES(1, 'Servicio de restauracion de muebles, restauramos cualquier tipo de muebeles de madera', 'Restauracion de muebles');
+INSERT INTO servicios(id, descripcion,nombre) VALUES(2, 'Servicio de restauracion de muebles, restauramos cualquier tipo de muebeles de madera', 'Restauracion de muebles');

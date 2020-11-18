@@ -47,8 +47,6 @@ public class ProductoRestController {
 	@Autowired
 	private IProductoService productoService;
 
-
-
 	@Autowired
 	private IImagenService imagenService;
 
@@ -96,7 +94,6 @@ public class ProductoRestController {
 
 		Producto productoNuevo = null;
 
-
 		Map<String, Object> response = new HashMap<>();
 
 		if (result.hasErrors()) {
@@ -108,14 +105,11 @@ public class ProductoRestController {
 			response.put("errors", errors);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
-		
-	
 
 		try {
 
 			productoNuevo = productoService.save(producto);
 
-			
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -184,7 +178,7 @@ public class ProductoRestController {
 		Map<String, Object> response = new HashMap<>();
 
 		Producto producto = productoService.findById(id);
-		
+
 		try {
 
 			for (Imagen imagen : producto.getImagenes()) {
@@ -206,7 +200,7 @@ public class ProductoRestController {
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/producto/img")
 	public ResponseEntity<?> saveImagen(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id) {
-		
+
 		Map<String, Object> response = new HashMap<>();
 
 		Producto producto = productoService.findById(id);
@@ -230,7 +224,6 @@ public class ProductoRestController {
 			imagen.setNombre(nombreArchivo);
 			imagen.setProducto(producto);
 
-
 			imagenService.save(imagen);
 
 			response.put("producto", producto);
@@ -243,13 +236,13 @@ public class ProductoRestController {
 
 	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/producto/delete/img/{id}")
-	public ResponseEntity<?> eliminarFoto(@PathVariable Long id){
-		
+	public ResponseEntity<?> eliminarFoto(@PathVariable Long id) {
+
 		Map<String, Object> response = new HashMap<>();
 		Imagen imagen = imagenService.findById(id);
-		
+
 		try {
-			
+
 			uploadService.eliminar(imagen.getNombre());
 			imagenService.delete(id);
 
@@ -261,10 +254,9 @@ public class ProductoRestController {
 
 		response.put("mensaje", "producto eliminado con éxito!");
 
-	
-		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/uploads/img/{nombreFoto:.+}")
 	public ResponseEntity<Resource> verFoto(@PathVariable String nombreFoto) {
 
@@ -281,14 +273,12 @@ public class ProductoRestController {
 
 		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/producto/imagenes/{id}")
-	public List<Imagen> probandoQuery(@PathVariable Long id){
-		
-		
+	public List<Imagen> probandoQuery(@PathVariable Long id) {
+
 		return imagenService.findByProductId(id);
 
-		
 	}
 
 }

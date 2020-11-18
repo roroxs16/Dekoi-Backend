@@ -56,7 +56,7 @@ public class Producto implements Serializable {
 	@JsonIgnoreProperties({ "producto", "hibernateLazyInitializer", "handler" })
 	private List<Imagen> imagenes;
 
-	public Producto(long id, String nombre, int stock, String descripcion, int valorUnitario, 			Categoria categoria) {
+	public Producto(long id, String nombre, int stock, String descripcion, int valorUnitario, Categoria categoria) {
 		this.id = id;
 		this.nombre = nombre;
 		this.stock = stock;
