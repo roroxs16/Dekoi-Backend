@@ -37,5 +37,7 @@ INSERT INTO usuarios_roles(usuario_id, roles_id) VALUES(1, 1);
 INSERT INTO usuarios_roles(usuario_id, roles_id) VALUES(2, 2);
 INSERT INTO usuarios_roles(usuario_id, roles_id) VALUES(3, 2);
 
-INSERT INTO servicios(id, descripcion,nombre) VALUES(1, 'Servicio de restauracion de muebles, restauramos cualquier tipo de muebeles de madera', 'Restauracion de muebles');
-INSERT INTO servicios(id, descripcion,nombre) VALUES(2, 'Servicio de restauracion de muebles, restauramos cualquier tipo de muebeles de madera', 'Restauracion de muebles');
+INSERT INTO servicios(id, descripcion,nombre) VALUES(1, 'Servicio de restauracion y tapizado de muebles, restauramos cualquier tipo de muebeles de madera', 'Restauración y tapizados de muebles');
+
+INSERT INTO servicios(id, descripcion,nombre) VALUES(2, 'Servicio de Diseño de muebles personalizados, en Dekoi diseñamos y fabricamos muebles a tu gusto, basamos nuestro diseño en las especificaciones que tú nos des', 'Diseño de muebles personalizados');
+INSERT INTO servicios(id, descripcion,nombre) VALUES(3, 'Servicio de Diseño de Interiores y remodelacion, en Dekoi realizamos diseños de interiores y remodelamos sectores de tu hogar', 'Diseño de interiores y remodelación');
