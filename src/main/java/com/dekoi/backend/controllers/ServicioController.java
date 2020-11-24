@@ -33,16 +33,11 @@ public class ServicioController {
 	@Autowired
 	private IServicioService servicioService;
 
-	@GetMapping("/servicios")
+	@GetMapping("/servicio")
 	public List<Servicio> listarServicio() {
 		return servicioService.findAll();
 	}
 
-	@GetMapping("/servicios/page/{page}")
-	public Page<Servicio> listarServicioPaginables(@PathVariable Integer page) {
-		Pageable pageable = PageRequest.of(page, 9);
-		return servicioService.findAll(pageable);
-	}
 
 	@GetMapping("/servicio/{id}")
 	public ResponseEntity<?> mostrarServicio(@PathVariable Long id) {
@@ -142,7 +137,7 @@ public class ServicioController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "producto eliminado con éxito!");
+		response.put("mensaje", "Servicio eliminado con éxito!");
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}

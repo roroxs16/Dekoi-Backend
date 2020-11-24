@@ -1,15 +1,12 @@
 package com.dekoi.backend.models;
 
 import java.io.Serializable;
-import java.util.List;
-
-
 import javax.persistence.Entity;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+
 
 import javax.persistence.Table;
 
@@ -27,8 +24,7 @@ public class Servicio implements Serializable {
 
 	private String descripcion;
 
-	@ManyToMany(mappedBy = "servicios")
-	private List<Reunion> reuniones;
+
 
 	public long getId() {
 		return id;
@@ -54,13 +50,7 @@ public class Servicio implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public List<Reunion> getReuniones() {
-		return reuniones;
-	}
 
-	public void setReuniones(List<Reunion> reuniones) {
-		this.reuniones = reuniones;
-	}
 
 	private static final long serialVersionUID = 4708172819658945356L;
 
