@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dekoi.backend.dao.IServicioDao;
 import com.dekoi.backend.models.Servicio;
@@ -17,6 +18,7 @@ public class ServicioServiceImpl implements IServicioService{
 	private IServicioDao servicioDao;
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<Servicio> findAll() {
 		// TODO Auto-generated method stub
 		return servicioDao.findAll();

@@ -6,9 +6,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -78,7 +75,7 @@ public class ServicioController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "El producto ha sido creado con exito!");
+		response.put("mensaje", "El servicio ha sido creado con exito!");
 		response.put("servicio", servicioNuevo);
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
@@ -96,7 +93,7 @@ public class ServicioController {
 		Map<String, Object> response = new HashMap<>();
 
 		if (servicioActual == null) {
-			response.put("mensaje", "Error: no se pudo editar, la Categoria con ID: "
+			response.put("mensaje", "Error: no se pudo editar, el servicio con ID: "
 					.concat(id.toString().concat(" no existe en la base de datos!")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
@@ -108,12 +105,12 @@ public class ServicioController {
 			servicioActualizado = servicioService.save(servicioActual);
 
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al actualizar el Producto en la base de datos");
+			response.put("mensaje", "Error al actualizar el servicio en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "El producto a ha sido actualizado con éxito!");
+		response.put("mensaje", "El servicio a ha sido actualizado con éxito!");
 		response.put("servicio", servicioActualizado);
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
@@ -132,7 +129,7 @@ public class ServicioController {
 			servicioService.delete(id);
 
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al eliminar el producto de la base de datos");
+			response.put("mensaje", "Error al eliminar el servicio de la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

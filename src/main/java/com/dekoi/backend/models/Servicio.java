@@ -24,7 +24,7 @@ public class Servicio implements Serializable {
 
 	private String descripcion;
 
-
+	
 
 	public long getId() {
 		return id;

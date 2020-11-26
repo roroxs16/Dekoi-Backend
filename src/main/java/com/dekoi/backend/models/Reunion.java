@@ -2,7 +2,6 @@ package com.dekoi.backend.models;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,10 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -26,24 +25,27 @@ public class Reunion implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	private Date fechaHora;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fechaInicio;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fechaTermino;
 
 	private String codigoReunion;
 
-	private boolean estado;
+	private String estado;
 
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "usuario_id", nullable = true)
 	@JsonIgnoreProperties({ "usuario", "hibernateLazyInitializer", "handler" })
 	private Usuario usuario;
-	
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "reunion_servicio", 
-      joinColumns = @JoinColumn(name = "reunion_id", referencedColumnName = "id"), 
-      inverseJoinColumns = @JoinColumn(name = "servicio_id", 
-      referencedColumnName = "id"))
-    private List<Servicio> servicios;
+
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "servicio_id", nullable = true)
+	@JsonIgnoreProperties({ "servicio", "hibernateLazyInitializer", "handler" })
+	private Servicio servicio;
 
 	public long getId() {
 		return id;
@@ -51,14 +53,6 @@ public class Reunion implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public Date getFechaHora() {
-		return fechaHora;
-	}
-
-	public void setFechaHora(Date fechaHora) {
-		this.fechaHora = fechaHora;
 	}
 
 	public String getCodigoReunion() {
@@ -69,20 +63,44 @@ public class Reunion implements Serializable {
 		this.codigoReunion = codigoReunion;
 	}
 
-	public boolean isEstado() {
-		return estado;
-	}
-
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
-
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Date getFechaInicio() {
+		return fechaInicio;
+	}
+
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	public Date getFechaTermino() {
+		return fechaTermino;
+	}
+
+	public void setFechaTermino(Date fechaTermino) {
+		this.fechaTermino = fechaTermino;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public Servicio getServicio() {
+		return servicio;
+	}
+
+	public void setServicio(Servicio servicio) {
+		this.servicio = servicio;
 	}
 
 	/**
