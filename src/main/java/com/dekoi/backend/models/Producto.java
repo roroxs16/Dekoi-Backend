@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
-@Table(name="producto")
+@Table(name="productos")
 public class Producto implements Serializable {
 
 	@Id
