@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +24,7 @@ public class Reunion implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaInicio;
@@ -36,22 +37,37 @@ public class Reunion implements Serializable {
 	private String estado;
 
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "usuario_id", nullable = true)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "usuario_id", nullable = false)
 	@JsonIgnoreProperties({ "usuario", "hibernateLazyInitializer", "handler" })
 	private Usuario usuario;
 
-	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "servicio_id", nullable = true)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "servicio_id", nullable = false)
 	@JsonIgnoreProperties({ "servicio", "hibernateLazyInitializer", "handler" })
 	private Servicio servicio;
 
-	public long getId() {
+	
+	
+	
+	public Reunion(Long id, Date fechaInicio, Date fechaTermino, String codigoReunion, String estado) {
+		
+		this.id = id;
+		this.fechaInicio = fechaInicio;
+		this.fechaTermino = fechaTermino;
+		this.codigoReunion = codigoReunion;
+		this.estado = estado;
+	}
+
+	public Reunion() {
+		
+	}
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
