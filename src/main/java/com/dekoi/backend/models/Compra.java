@@ -41,7 +41,7 @@ public class Compra {
     @JoinColumn(name="direccion_id")
     private Direccion direccion;
 	
-	@JsonIgnore
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "usuario_id", nullable = true)
 	@JsonIgnoreProperties({ "compras","hibernateLazyInitializer", "handler" })
