@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class UploadServiceImpl implements IUploadService {
 
 	//uploads para el servidor
-//	private final static String DIRECTORIO_UPLOAD = "home/rcifuentes/uploads";
+	//private final static String DIRECTORIO_UPLOAD = "home/rcifuentes/uploads";
 
 	//local
 	private final static String DIRECTORIO_UPLOAD = "uploads";

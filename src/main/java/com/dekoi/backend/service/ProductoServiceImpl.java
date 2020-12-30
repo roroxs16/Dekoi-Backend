@@ -19,13 +19,13 @@ public class ProductoServiceImpl implements IProductoService {
 	@Override
 	public List<Producto> findAll() {
 
-		return productoDao.findAll();
+		return productoDao.findByEstado();
 	}
 
 	@Override
 	public Page<Producto> findAll(Pageable pageable) {
 
-		return productoDao.findAll(pageable);
+		return productoDao.findAllProductosByEstadoPage(pageable);
 	}
 
 	@Override

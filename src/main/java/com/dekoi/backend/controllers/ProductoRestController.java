@@ -107,7 +107,7 @@ public class ProductoRestController {
 		}
 
 		try {
-
+			producto.setEstado("Habilitado");
 			productoNuevo = productoService.save(producto);
 
 		} catch (DataAccessException e) {
@@ -156,7 +156,7 @@ public class ProductoRestController {
 			productoActual.setStock(producto.getStock());
 			productoActual.setValorUnitario(producto.getValorUnitario());
 			productoActual.setCategoria(producto.getCategoria());
-
+			productoActual.setEstado("Habilitado");
 			productoActualizado = productoService.save(productoActual);
 
 		} catch (DataAccessException e) {
@@ -184,7 +184,8 @@ public class ProductoRestController {
 			for (Imagen imagen : producto.getImagenes()) {
 				uploadService.eliminar(imagen.getNombre());
 			}
-			productoService.delete(id);
+			producto.setEstado("Deshabilitado");
+			productoService.save(producto);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al eliminar el producto de la base de datos");

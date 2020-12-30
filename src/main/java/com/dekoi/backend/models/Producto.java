@@ -45,6 +45,7 @@ public class Producto implements Serializable {
 	@Min(value = 0, message = "El valor del producto no puede ser menor a 0")
 	private int valorUnitario;
 
+	private String estado;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "categoria_id", nullable = false)
@@ -56,13 +57,13 @@ public class Producto implements Serializable {
 	@JsonIgnoreProperties({ "producto", "hibernateLazyInitializer", "handler" })
 	private List<Imagen> imagenes;
 
-	public Producto(long id, String nombre, int stock, String descripcion, int valorUnitario, Categoria categoria) {
+	public Producto(long id, String nombre, int stock, String descripcion, int valorUnitario, String estado, Categoria categoria) {
 		this.id = id;
 		this.nombre = nombre;
 		this.stock = stock;
 		this.descripcion = descripcion;
 		this.valorUnitario = valorUnitario;
-
+		this.estado = estado;
 		this.categoria = categoria;
 	}
 
@@ -128,6 +129,16 @@ public class Producto implements Serializable {
 
 	public void setImagenes(List<Imagen> imagenes) {
 		this.imagenes = imagenes;
+	}
+
+
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 

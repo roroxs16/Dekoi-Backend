@@ -40,6 +40,7 @@ public class Usuario implements Serializable {
 
 	private long numeroTelefono;
 
+	
 	@JsonIgnoreProperties
 	private String password;
 

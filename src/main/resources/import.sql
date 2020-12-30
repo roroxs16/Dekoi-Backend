@@ -6,15 +6,15 @@ INSERT INTO categoria(id, nombre) VALUES(4, 'Oficina');
 INSERT INTO categoria(id, nombre) VALUES(5, 'Exteriores');
 INSERT INTO categoria(id, nombre) VALUES(6, 'Interiores');
 
-INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,categoria_id) VALUES(1, 'Mesa de madera nacional fabricada y tallada artesanalmente de color crema', 'Mesa redonda', '687', '466666', '1');
-INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,categoria_id) VALUES(2, 'Mesa de roble nacional de color claro', 'Mesa de roble ancestral', '687', '100000', '1');
-INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,categoria_id) VALUES(3, 'Mesa de alerce europeo de color marrón claro', 'Mesa cuadrada de alerce', '687', '150000', '1');
-INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,categoria_id) VALUES(4, 'Silla de cerezo japones exportada desde japón', 'Silla de cerezo japones', '687', '40000', '2');
-INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,categoria_id) VALUES(5, 'Comedor familiar de color burdeo para 8 personas', 'Comedor familiar', '687', '466666', '3');
-INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,categoria_id) VALUES(6, 'Lampara de madera inspirada en la naturaleza', 'Lampara de techo', '687', '100000', '6');
-INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,categoria_id) VALUES(7, 'Candelabro de techo tallado en madera nacional', 'Lampara Colgante', '687', '100000', '6');
-INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,categoria_id) VALUES(8, 'Escritorio de madera en forma de L recubierto con melamina de color marrón', 'Escritorio de oficina en forma de L', '687', '150000', '4');
-INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,categoria_id) VALUES(9, 'Escritorio de madera en forma de L recubierto con melamina de color gris', 'Escritorio de oficina en forma de L', '687', '40000', '4');
+INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,estado,categoria_id) VALUES(1, 'Mesa de madera nacional fabricada y tallada artesanalmente de color crema', 'Mesa redonda', '687', '466666','Habilitado', '1');
+INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,estado,categoria_id) VALUES(2, 'Mesa de roble nacional de color claro', 'Mesa de roble ancestral', '687', '100000','Habilitado', '1');
+INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,estado,categoria_id) VALUES(3, 'Mesa de alerce europeo de color marrón claro', 'Mesa cuadrada de alerce', '687', '150000','Habilitado', '1');
+INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,estado,categoria_id) VALUES(4, 'Silla de cerezo japones exportada desde japón', 'Silla de cerezo japones', '687', '40000','Habilitado', '2');
+INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,estado,categoria_id) VALUES(5, 'Comedor familiar de color burdeo para 8 personas', 'Comedor familiar', '687', '466666','Habilitado', '3');
+INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,estado,categoria_id) VALUES(6, 'Lampara de madera inspirada en la naturaleza', 'Lampara de techo', '687', '100000','Habilitado', '6');
+INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,estado,categoria_id) VALUES(7, 'Candelabro de techo tallado en madera nacional', 'Lampara Colgante', '687', '100000','Deshabilitado', '6');
+INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,estado,categoria_id) VALUES(8, 'Escritorio de madera en forma de L recubierto con melamina de color marrón', 'Escritorio de oficina en forma de L', '687', '150000','Habilitado', '4');
+INSERT INTO productos(id, descripcion,nombre,stock,valor_unitario,estado,categoria_id) VALUES(9, 'Escritorio de madera en forma de L recubierto con melamina de color gris', 'Escritorio de oficina en forma de L', '687', '40000','Habilitado', '4');
 
 INSERT INTO usuarios(id, apellido,ciudad,direccion,email,nombre,password,rut,numero_telefono) VALUES(1, 'Cifuentes', 'Chillán', 'Monte Tibidabo 1339', 'rodrigo.cifuentes@gmail.com','Rodrigo', '$2a$10$UZDG2bZjYlnhHh9Yrpqkketyq2lj92JprtHqDLCZv0/LegbuWlVC.','19.090.005-3', 942750783);
 INSERT INTO usuarios(id, apellido,ciudad,direccion,email,nombre,password,rut,numero_telefono) VALUES(2, 'Martinez', 'Chillán', 'Monte Tibidabo 1339', 'Carolina.Martinez@gmail.com','Carolina', '$2a$10$wTlcvl7x5YRKPb410r1plOlx6/Yb5F3iw9gejGaLCp8/tCusj91Me','14.292.654-7', 942750783);
