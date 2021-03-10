@@ -117,6 +117,7 @@ public class ProductoRestController {
 		}
 
 		response.put("mensaje", "El producto ha sido creado con exito!");
+	
 		response.put("producto", productoNuevo);
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);

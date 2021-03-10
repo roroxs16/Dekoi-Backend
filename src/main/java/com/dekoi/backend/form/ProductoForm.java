@@ -7,6 +7,7 @@ public class ProductoForm {
 
 	@Min(value = 1)
 	private int cantidad;
+	
 	@NotEmpty
 	private long productoId;
 
